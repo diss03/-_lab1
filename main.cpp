@@ -52,9 +52,11 @@ int main() {
 
             if (A == "S") {
                 result = sequential_multiplication(N, M);
+                cout << iteration + 1 << " multiplication result " << result.first << endl;
             }
             else if (A == "PF") {
                 result = parallel_for_multiplication(N, M);
+                cout << iteration + 1 << " multiplication result " << result.first << endl;
             }
             else if (A == "PA") {
                 cout << "empty function (iteration " << iteration + 1 << ")" << endl;
@@ -66,15 +68,13 @@ int main() {
             }
 
             // Накопление результатов
-            totalSum += result.first;               // Сумма
             totalTime += result.second.count();     // Время в миллисекундах
             cout << "Iteration " << iteration + 1 << ": Time = " << result.second.count()
-                << " ms, Sum = " << result.first << endl;
+                << " ms" << endl;
         }
 
         // Вывод усреднённых результатов
         cout << "Average time for test " << test + 1 << ": " << totalTime / 10 << " ms" << endl;
-        cout << "Average sum of C for test " << test + 1 << ": " << totalSum / 10 << endl;
     }
 
     return 0;

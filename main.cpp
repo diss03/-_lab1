@@ -43,10 +43,10 @@ int main() {
         int M = M_values[test];
         cout << "\nTest " << test + 1 << " (N=" << N << ", M=" << M << "):" << endl;
 
-        double totalTime = 0.0;  // Â ìèëëèñåêóíäàõ
+        double totalTime = 0.0;  // Ã‚ Ã¬Ã¨Ã«Ã«Ã¨Ã±Ã¥ÃªÃ³Ã­Ã¤Ã Ãµ
         double totalSum = 0.0;
 
-        // Öèêë èç 10 èòåðàöèé äëÿ òåêóùåãî òåñòà
+        // Ã–Ã¨ÃªÃ« Ã¨Ã§ 10 Ã¨Ã²Ã¥Ã°Ã Ã¶Ã¨Ã© Ã¤Ã«Ã¿ Ã²Ã¥ÃªÃ³Ã¹Ã¥Ã£Ã® Ã²Ã¥Ã±Ã²Ã 
         for (int iteration = 0; iteration < 10; ++iteration) {
             pair<double, chrono::milliseconds> result;
 
@@ -57,6 +57,7 @@ int main() {
             else if (A == "PF") {
                 result = parallel_for_multiplication(N, M);
                 cout << iteration + 1 << " multiplication result " << result.first << endl;
+
             }
             else if (A == "PA") {
                 cout << "empty function (iteration " << iteration + 1 << ")" << endl;
@@ -67,13 +68,13 @@ int main() {
                 return 1;
             }
 
-            // Íàêîïëåíèå ðåçóëüòàòîâ
-            totalTime += result.second.count();     // Âðåìÿ â ìèëëèñåêóíäàõ
+            // ÃÃ ÃªÃ®Ã¯Ã«Ã¥Ã­Ã¨Ã¥ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã®Ã¢
+            totalTime += result.second.count();     // Ã‚Ã°Ã¥Ã¬Ã¿ Ã¢ Ã¬Ã¨Ã«Ã«Ã¨Ã±Ã¥ÃªÃ³Ã­Ã¤Ã Ãµ
             cout << "Iteration " << iteration + 1 << ": Time = " << result.second.count()
                 << " ms" << endl;
         }
 
-        // Âûâîä óñðåäí¸ííûõ ðåçóëüòàòîâ
+        // Ã‚Ã»Ã¢Ã®Ã¤ Ã³Ã±Ã°Ã¥Ã¤Ã­Â¸Ã­Ã­Ã»Ãµ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã®Ã¢
         cout << "Average time for test " << test + 1 << ": " << totalTime / 10 << " ms" << endl;
     }
 

@@ -1,11 +1,10 @@
-#pragma once
 #include <iostream>
 #include <vector>
-#include <chrono>
-#include <random>
 #include <string>
 #include "omp_for.h"
 #include "sequential.h"
+
+//using namespace std;
 
 int main() {
     std::string A;

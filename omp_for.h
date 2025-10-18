@@ -5,6 +5,6 @@
 #include <vector>
 
 // ќбъ€вление функции параллельного умножени€ с #pragma omp for
-void parallel_for_multiplication(int N, int M);
+std::pair<double, std::chrono::milliseconds> parallel_for_multiplication(int N, int M);
 
 #endif // OMP_FOR_H

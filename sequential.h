@@ -5,6 +5,6 @@
 #include <vector>
 
 // ќбъ€вление функции последовательного умножени€
-void sequential_multiplication(int N, int M);
+std::pair<double, std::chrono::milliseconds> sequential_multiplication(int N, int M);
 
 #endif // SEQUENTIAL_H

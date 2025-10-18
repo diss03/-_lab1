@@ -2,10 +2,12 @@
 #include <vector>
 #include <chrono>
 #include <random>
+#include <utility>
 #include <omp.h>
+#include <utility>  // Для std::make_pair
 #include "omp_for.h"
 
-void parallel_for_multiplication(int N, int M) {
+std::pair<double, std::chrono::milliseconds> parallel_for_multiplication(int N, int M) {
     std::vector<std::vector<float>> A(N, std::vector<float>(M));
     std::vector<float> B(M);
     std::vector<float> C(N, 0.0f);
@@ -27,7 +29,6 @@ void parallel_for_multiplication(int N, int M) {
 
     // Параллельное умножение матрицы на вектор
 #pragma omp parallel for
-
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < M; ++j) {
             C[i] += A[i][j] * B[j];
@@ -35,12 +36,12 @@ void parallel_for_multiplication(int N, int M) {
     }
 
     auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-
-    std::cout << "OMP for time: " << duration.count() << " seconds" << std::endl;
-    std::cout << "Number of threads used: " << omp_get_max_threads() << std::endl;
+    std::chrono::duration<double> duration_seconds = end - start;
+    std::chrono::milliseconds duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration_seconds);
 
     float sum = 0.0f;
     for (float val : C) sum += val;
-    std::cout << "Sum of C: " << sum << std::endl;
+
+    // Возвращаем сумму и время в миллисекундах
+    return std::make_pair(static_cast<double>(sum), duration_ms);
 }

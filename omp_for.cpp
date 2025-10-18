@@ -27,6 +27,7 @@ void parallel_for_multiplication(int N, int M) {
 
     // Параллельное умножение матрицы на вектор
 #pragma omp parallel for
+
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < M; ++j) {
             C[i] += A[i][j] * B[j];

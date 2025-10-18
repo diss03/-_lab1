@@ -1,39 +1,80 @@
+//#pragma once
+
 #include <iostream>
-#include <vector>
 #include <string>
+#include <utility>
+#include <vector>
+#include <chrono>
 #include "omp_for.h"
 #include "sequential.h"
 
-//using namespace std;
+using namespace std;
 
 int main() {
-    std::string A;
-    std::cout << "Enter multiplication algorithm (S, PF, PA): ";
-    std::cin >> A;
-
-    int N, M;
-    std::cout << "Enter N (rows): ";
-    if (!(std::cin >> N) || N <= 0) {
-        std::cout << "Invalid N!" << std::endl;
-        return 1;
-    }
-    std::cout << "Enter M (columns): ";
-    if (!(std::cin >> M) || M <= 0) {
-        std::cout << "Invalid M!" << std::endl;
+    int testCount;
+    cout << "Enter the number of tests: ";
+    if (!(cin >> testCount) || testCount <= 0) {
+        cout << "Invalid number of tests!" << endl;
         return 1;
     }
 
-    if (A == "S") {
-        sequential_multiplication(N, M);
+    vector<int> N_values(testCount);
+    vector<int> M_values(testCount);
+
+    for (int i = 0; i < testCount; ++i) {
+        cout << "Enter N (rows) for test " << i + 1 << ": ";
+        if (!(cin >> N_values[i]) || N_values[i] <= 0) {
+            cout << "Invalid N for test " << i + 1 << "!" << endl;
+            return 1;
+        }
+        cout << "Enter M (columns) for test " << i + 1 << ": ";
+        if (!(cin >> M_values[i]) || M_values[i] <= 0) {
+            cout << "Invalid M for test " << i + 1 << "!" << endl;
+            return 1;
+        }
     }
-    else if (A == "PF") {
-        parallel_for_multiplication(N, M);
-    }
-    else if (A == "PA") {
-        std::cout << "empty function" << std::endl;
-    }
-    else {
-        std::cout << "Instruction doesn't exist!" << std::endl;
+
+    string A;
+    cout << "Enter multiplication algorithm (S, PF, PA): ";
+    cin >> A;
+
+    for (int test = 0; test < testCount; ++test) {
+        int N = N_values[test];
+        int M = M_values[test];
+        cout << "\nTest " << test + 1 << " (N=" << N << ", M=" << M << "):" << endl;
+
+        double totalTime = 0.0;  // В миллисекундах
+        double totalSum = 0.0;
+
+        // Цикл из 10 итераций для текущего теста
+        for (int iteration = 0; iteration < 10; ++iteration) {
+            pair<double, chrono::milliseconds> result;
+
+            if (A == "S") {
+                result = sequential_multiplication(N, M);
+            }
+            else if (A == "PF") {
+                result = parallel_for_multiplication(N, M);
+            }
+            else if (A == "PA") {
+                cout << "empty function (iteration " << iteration + 1 << ")" << endl;
+                continue;
+            }
+            else {
+                cout << "Instruction doesn't exist!" << endl;
+                return 1;
+            }
+
+            // Накопление результатов
+            totalSum += result.first;               // Сумма
+            totalTime += result.second.count();     // Время в миллисекундах
+            cout << "Iteration " << iteration + 1 << ": Time = " << result.second.count()
+                << " ms, Sum = " << result.first << endl;
+        }
+
+        // Вывод усреднённых результатов
+        cout << "Average time for test " << test + 1 << ": " << totalTime / 10 << " ms" << endl;
+        cout << "Average sum of C for test " << test + 1 << ": " << totalSum / 10 << endl;
     }
 
     return 0;

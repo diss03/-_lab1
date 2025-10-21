@@ -7,6 +7,7 @@
 #include <chrono>
 #include "omp_for.h"
 #include "sequential.h"
+#include "parallel_sections.h"
 
 using namespace std;
 
@@ -35,7 +36,7 @@ int main() {
     }
 
     string A;
-    cout << "Enter multiplication algorithm (S, PF, PA): ";
+    cout << "Enter multiplication algorithm (S, PF, PS): ";
     cin >> A;
 
     for (int test = 0; test < testCount; ++test) {
@@ -58,9 +59,9 @@ int main() {
                 result = parallel_for_multiplication(N, M);
                 cout << iteration + 1 << " multiplication result " << result.first << endl;
             }
-            else if (A == "PA") {
-                cout << "empty function (iteration " << iteration + 1 << ")" << endl;
-                continue;
+            else if (A == "PS") {
+                result = mult_matrix_parallel_manual(N, M);
+                cout << iteration + 1 << " multiplication result " << result.first << endl;
             }
             else {
                 cout << "Instruction doesn't exist!" << endl;

@@ -104,6 +104,7 @@
       <ConformanceMode>true</ConformanceMode>
       <OpenMPSupport>true</OpenMPSupport>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:twoPhase %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,6 +121,7 @@
       <ConformanceMode>true</ConformanceMode>
       <OpenMPSupport>true</OpenMPSupport>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/Zc:twoPhase %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,10 +131,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="omp_for.cpp" />
+    <ClCompile Include="parallel_sections.cpp" />
     <ClCompile Include="sequential.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="omp_for.h" />
+    <ClInclude Include="parallel_sections.h" />
     <ClInclude Include="sequential.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

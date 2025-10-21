@@ -24,12 +24,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="parallel_sections.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="omp_for.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="sequential.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parallel_sections.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
